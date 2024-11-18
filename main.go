@@ -3,6 +3,7 @@ package main
 import (
 	"fmt"
 
+	db "github.com/jenagansivakumar/deliverytracking/database"
 	uuid "github.com/nu7hatch/gouuid"
 )
 
@@ -35,6 +36,12 @@ func createNewDelivery(name string, address string) Delivery {
 }
 
 func main() {
-	newDelivery := createNewDelivery("jena", "address")
-	fmt.Println(newDelivery)
+
+	conn, err := db.OpenDatabase()
+	if err != nil {
+		panic(fmt.Sprintf("Failed to connect to the database: %v", err))
+	}
+	defer conn.Close()
+	fmt.Println("Database connection successful!")
+
 }
