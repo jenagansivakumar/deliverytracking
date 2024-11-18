@@ -44,4 +44,7 @@ func main() {
 	defer conn.Close()
 	fmt.Println("Database connection successful!")
 
+	newDelivery := createNewDelivery("John Doe", "123 Main St")
+	fmt.Printf("New Delivery Created: %+v\n", newDelivery)
+
 }
