@@ -22,3 +22,20 @@ func OpenDatabase() (*sql.DB, error) {
 	fmt.Println("you are now connected")
 	return db, nil
 }
+
+func InitializeDatabase(conn *sql.DB) error {
+	createTableQuery := `
+        CREATE TABLE IF NOT EXISTS deliveries (
+            id TEXT PRIMARY KEY,
+            name TEXT NOT NULL,
+            address TEXT NOT NULL,
+            status TEXT NOT NULL,
+            created_at DATETIME DEFAULT CURRENT_TIMESTAMP
+        );
+    `
+	_, err := conn.Exec(createTableQuery)
+	if err != nil {
+		return fmt.Errorf("failed to create table: %w", err)
+	}
+	return nil
+}
